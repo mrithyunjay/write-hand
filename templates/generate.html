@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Handwrite — Generate Font{% endblock %}
+
+{% block steps %}
+<div class="step-indicator">
+  <div class="step done"></div>
+  <div class="step active"></div>
+  <div class="step"></div>
+</div>
+{% endblock %}
+
+{% block content %}
+<h1>Generate Font</h1>
+<p class="subtitle">Upload your filled template.</p>
+
+<form method="POST" enctype="multipart/form-data" action="{{ url_for('generate') }}">
+
+  <label for="pngfile">Filled template (jpg)</label>
+  <input type="file" id="pngfile" name="pngfile" accept=".jpg" required>
+
+  <label for="family">Font family name</label>
+  <input type="text" id="family" name="family" placeholder="e.g. MyHandwriting" required
+         maxlength="64" pattern="[A-Za-z0-9 \-_]+"
+         title="Letters, numbers, spaces, hyphens, underscores only">
+  
+  <label for="family">File name</label>
+  <input type="text" id="filename" name="filename" placeholder="e.g. MyFontFileName" required
+         maxlength="64" pattern="[A-Za-z0-9 \-_]+"
+         title="Letters, numbers, spaces, hyphens, underscores only">
+
+  <label for="style">Font style</label>
+  <input type="text" id="style" name="style" placeholder="e.g. Regular, Bold" required
+         maxlength="64" pattern="[A-Za-z0-9 \-_]+"
+         title="Letters, numbers, spaces, hyphens, underscores only">
+
+  <button type="submit" class="btn Next">Generate Font → </button>
+</form>
+
+<p class="hint">
+  ← <a href="{{ url_for('index') }}">Back to template download</a>
+</p>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Handwrite — Download Font{% endblock %}
+
+{% block steps %}
+<div class="step-indicator">
+  <div class="step done"></div>
+  <div class="step done"></div>
+  <div class="step active"></div>
+</div>
+{% endblock %}
+
+{% block content %}
+<h1>Your Font is Ready</h1>
+
+<p style="color: var(--text); line-height: 1.7; margin-bottom: 1.75rem;">
+  Install it like any other font — double-click the TTF on Windows or macOS.
+</p>
+
+<a href="{{ url_for('serve_font_file', job_id=job_id) }}" class="btn Next">
+  ↓ Download font.ttf
+</a>
+
+<p class="hint" style="margin-top: 1.5rem;">
+  Note: this link works once — the file is deleted after download.<br><br>
+  ← <a href="{{ url_for('generate') }}">Generate another font</a>
+</p>
+{% endblock %}

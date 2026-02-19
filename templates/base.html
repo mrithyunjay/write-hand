@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='duct.png') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Write-Hand</title>
+  <style>
+    @font-face {
+      font-family: "AshFont";
+      src: url("{{ url_for('static', filename='AshFont.ttf') }}");
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #1a1b26;
+      --surface: #282A36;
+      --border:  #1a1b26;
+      --text:    #c0caf5;
+      --muted:   #6272A4;
+      --accent:  #BD93F9;
+      --danger:  #FF5555;
+      --radius:  6px;
+      --mono: "JetBrains Mono", Courier, monospace;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "JetBrains Mono", serif;
+      font-size: 1.1em;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem 3rem;
+      width: 100%;
+      max-width: 520px;
+    }
+
+    h1 {
+      font-weight: 1000;
+      font-size: 4rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.4rem;
+      color: var(--accent);
+      font-family: AshFont;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+      font-family: var(--mono);
+    }
+
+    .step-indicator {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .step {
+      height: 3px;
+      flex: 1;
+      background: var(--border);
+      border-radius: 2px;
+    }
+    .step.active  { background: var(--accent); }
+    .step.done    { background: #604a7d; }
+    .step.inactive { background: #BD93F9; }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      font-family: var(--mono);
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    input[type="text"],
+    input[type="file"] {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 0.95rem;
+      padding: 0.65rem 0.85rem;
+      margin-bottom: 1.25rem;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    input[type="text"]:focus,
+    input[type="file"]:focus {
+      border-color: var(--accent);
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #0f0f0f;
+      border: none;
+      border-radius: var(--radius);
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      font-weight: bold;
+      letter-spacing: 0.06em;
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn.full  { width: 100%; background: #BD93F9; text-align: center; }
+    .btn.full:hover {background: #BD93F9;}
+    .btn.Next  { width: 100%; background: #50FA7B; margin-top: 0.5cm; text-align: center; }
+    .btn.Next:hover {background: #50FA7B;}
+
+    .flash-list {
+      list-style: none;
+      margin-bottom: 1.25rem;
+    }
+    .flash-list li {
+      background: #2a1010;
+      border: 1px solid var(--danger);
+      border-radius: var(--radius);
+      color: #e07070;
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      padding: 0.6rem 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-family: var(--mono);
+      margin-top: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .hint a { color: var(--accent); text-decoration: none; }
+    .hint a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    {% block steps %}{% endblock %}
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flash-list">
+          {% for m in messages %}<li>{{ m }}</li>{% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>

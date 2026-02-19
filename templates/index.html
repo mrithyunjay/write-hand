@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Handwrite — Get Template{% endblock %}
+
+{% block steps %}
+<div class="step-indicator">
+  <div class="step active"></div>
+  <div class="step"></div>
+  <div class="step"></div>
+</div>
+{% endblock %}
+
+{% block content %}
+<h1>WRITE-HAND</h1>
+<p class="subtitle">Make your keyboard type like you write.</p>
+
+<p style="color: var(--text); line-height: 1.7; margin-bottom: 1.75rem;">
+  Download template, and fill in each character box by hand. Use an iPad or something idk. Or print it out; write; scan.
+</p>
+<p style="color: var(--text); line-height: 1.7; margin-bottom: 1.75rem;"></p>
+  After you have a filled template (jpg), attach it in the next step.
+</p>
+
+<a href="{{ url_for('download_template') }}" class="btn full" style="margin-top: 1em;">
+  ↓ Download Template
+</a>
+<p align="center" style="margin-top: 1rem;padding-bottom: 1rem;">Example Template:</p>
+
+<a href="{{ url_for('static', filename='Hw.jpg') }}">
+<img 
+  src="{{ url_for('static', filename='Hw.jpg') }}"
+  alt="Sample Image"
+  style="display:block; margin:auto; border:4px solid #BD93F9; border-radius: 5px;"
+  width="200em";
+>
+</a>
+<a href="{{ url_for('generate') }}" class="btn Next" style="margin-top: 1.5rem;">
+  Upload → Generate Font
+</a>
+
+{% endblock %}
